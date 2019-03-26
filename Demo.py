@@ -35,22 +35,7 @@ try:
     motorAll.reverse(100)
     trigIR()
     time.sleep(1.7)
-    motorAll.stop()
-    m2.reverse(100)
     trigIR()
-    time.sleep(0.2)
-    motorAll.stop()
-    trigIR()
-    motorAll.reverse(1)
-    trigIR()
-    motorAll.stop()
-    trigIR()
-    m1.forward(50)
-    time.sleep(0.5)
-    motorAll.stop()
-    motorAll.forward(100)
-    trigIR()
-    time.sleep(1.7)
     motorAll.stop()
     trigIR()
     while True:
@@ -61,7 +46,7 @@ try:
                 us.trigger()
                 trigIR()
                 if us.Triggered:
-                    motorAll.forward(100)
+                    motorAll.forward(70)
                     trigIR()
             motorAll.reverse(60)
             trigIR()
@@ -69,20 +54,31 @@ try:
             motorAll.stop()
             trigIR()
         else:
-            m1.forward(50)
+            m1.forward(40)
             trigIR()
-            m2.reverse(50)
+            m2.reverse(40)
             trigIR()
-            time.sleep(1)
+            us.trigger()
+            trigIR()
+            if us.Triggered:
+                for x in range(10):
+                    us.trigger()
+                    trigIR()
+                    if us.Triggered:
+                        motorAll.forward(100)
+                        trigIR()
+            time.sleep(0.3)
             motorAll.stop()
             trigIR()
             x=x+1
-            if x==1:
-                motorAll.forward(40)
+            print(x)
+            if x%3==0:
                 trigIR()
+                motorAll.forward(40)
                 time.sleep(1)
                 trigIR()
                 motorAll.stop()
+                print("x is being 0d")
             trigIR()
         
 
