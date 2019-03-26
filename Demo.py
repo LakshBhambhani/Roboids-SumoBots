@@ -36,6 +36,14 @@ try:
     trigIR()
     time.sleep(1.7)
     motorAll.stop()
+    m2.reverse(100)
+    trigIR()
+    time.sleep(0.2)
+    motorAll.stop()
+    trigIR()
+    motorAll.reverse(1)
+    trigIR()
+    motorAll.stop()
     trigIR()
     m1.forward(50)
     time.sleep(0.5)
@@ -62,10 +70,12 @@ try:
             trigIR()
         else:
             m1.forward(50)
+            trigIR()
             m2.reverse(50)
             trigIR()
-            time.sleep(5)
+            time.sleep(1)
             motorAll.stop()
+            trigIR()
             x=x+1
             if x==1:
                 motorAll.forward(40)
