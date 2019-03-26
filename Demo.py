@@ -17,7 +17,7 @@ motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
 
 x=0
 
-def TrigIR():
+def trigIR():
     ir1.trigger()
     ir2.trigger()
     if ir1.Triggered:
@@ -33,47 +33,47 @@ def TrigIR():
 
 try:
     motorAll.reverse(100)
-    TrigIR()
+    trigIR()
     time.sleep(1.7)
     motorAll.stop()
-    TrigIR()
+    trigIR()
     m1.forward(50)
     time.sleep(0.5)
     motorAll.stop()
     motorAll.forward(100)
-    TrigIR()
+    trigIR()
     time.sleep(1.7)
     motorAll.stop()
-    TrigIR()
+    trigIR()
     while True:
         us.trigger()
-        TrigIR()
+        trigIR()
         if us.Triggered:
             for x in range(10):
                 us.trigger()
-                TrigIR()
+                trigIR()
                 if us.Triggered:
                     motorAll.forward(100)
-                    TrigIR()
+                    trigIR()
             motorAll.reverse(60)
-            TrigIR()
+            trigIR()
             time.sleep(1)
             motorAll.stop()
-            TrigIR()
+            trigIR()
         else:
             m1.forward(50)
             m2.reverse(50)
-            TrigIR()
+            trigIR()
             time.sleep(5)
             motorAll.stop()
             x=x+1
             if x==1:
                 motorAll.forward(40)
-                TrigIR()
+                trigIR()
                 time.sleep(1)
-                TrigIR()
+                trigIR()
                 motorAll.stop()
-            TrigIR()
+            trigIR()
         
 
 except KeyboardInterrupt:
