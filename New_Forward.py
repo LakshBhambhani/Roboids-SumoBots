@@ -8,10 +8,6 @@ m2 = PiMotor.Motor("MOTOR2",1)
 m3 = PiMotor.Motor("MOTOR3",1)
 m4 = PiMotor.Motor("MOTOR4",1)
 
-us=Sensor("ULTRASONIC",30)
-ir1=Sensor("IR1",4)
-ir2=Sensor("IR2",4)
-
 #M1 = BL
 #M2 = BR
 #M3 = FR
