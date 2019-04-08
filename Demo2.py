@@ -52,13 +52,17 @@ def right():
 try:
     print ("Going to the left...")
     m1.reverse(75)
-    m2.reverse(90)
+    m2.reverse(75)
+    m3.reverse(90)
+    m4.reverse(90)
     time.sleep(1.2)
     motorAll.stop()
     while True:
         m1.forward(35)
+        m2.forward(35)
         trigIR()
-        m2.reverse(35)
+        m3.forward(70)
+        m4.forward(70)
         trigIR()
         us.trigger()
         trigIR()
@@ -75,8 +79,7 @@ try:
                 if us.Triggered:
                     motorAll.forward(100)
                     trigIR()
-            m1.reverse(70)
-            m2.reverse(70)
+            motorAll.reverse(70)
             time.sleep(1)
             motorAll.stop()
         if x==17:
