@@ -2,24 +2,25 @@ import PiMotor
 from PiMotor import Sensor
 import time
 
-
 m1 = PiMotor.Motor("MOTOR1",1)
 m2 = PiMotor.Motor("MOTOR2",1)
 m3 = PiMotor.Motor("MOTOR3",1)
 m4 = PiMotor.Motor("MOTOR4",1)
 
-us=Sensor("ULTRASONIC",45)
+us=Sensor("ULTRASONIC",120)
 ir1=Sensor("IR2",10)
 ir2=Sensor("IR1",10)
 
 #To drive all motors together
 motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
-
-x=0
+leftMotors = PiMotor.LinkedMotors(m1,m2)
+rightMotors = PiMotor.LinkedMotors(m3,m4)
 
 def trigIR():
     ir1.trigger()
     ir2.trigger()
+    ir1.boundary = 10
+    ir2.boundary = 10
     if ir1.Triggered:
         motorAll.reverse(100)
         time.sleep(0.7)
@@ -31,64 +32,50 @@ def trigIR():
         motorAll.stop()
         print("Back Line Detected")
 
-def left():
-    print ("Going to the right...")
-    m1.reverse(100)
-    m2.reverse(60)
-    trigIR()
-    time.sleep(1.8)
-    motorAll.stop()
-    trigIR()
+def findOpponent():
+    print("Finding")
+    loopright = True
+    count = 1
+    while True:
+        trigIR()
+        count = count +1
+        if count > 1500:
+            print ("Not found reversing side")
+            loopright = not loopright
+            count = 0
+        motorAll.stop()
+        us.boundary = 120
+        us.trigger()
+        time.sleep(0.001)
+        if us.Triggered:
+            print("Found")
+            break
+        if loopright:
+            leftMotors.forward(80)
+            rightMotors.reverse(80)
+        else:
+            leftMotors.reverse(80)
+            rightMotors.forward(80)
+        time.sleep(0.001)
 
-def right():
-    print ("Going to the left...")
-    m1.reverse(70)
-    m2.reverse(100)
-    trigIR()
-    time.sleep(1.8)
-    motorAll.stop() 
-    trigIR()
+    if us.Triggered:
+            print("Found opponent")
+            while us.Triggered:
+                us.trigger()
+                trigIR()
+                motorAll.forward(80)
 
 try:
     print ("Going to the left...")
-    m1.reverse(75)
-    m2.reverse(75)
-    m3.reverse(90)
-    m4.reverse(90)
+    m1.reverse(35)
+    m2.reverse(35)
+    m3.reverse(50)
+    m4.reverse(50)
     time.sleep(1.2)
     motorAll.stop()
     while True:
-        m1.forward(35)
-        m2.forward(35)
-        trigIR()
-        m3.forward(70)
-        m4.forward(70)
-        trigIR()
-        us.trigger()
-        trigIR()
-        time.sleep(0.2)
-        trigIR()
-        motorAll.stop()
-        #Sonic Check
-        trigIR() 
-        x=x+1 
-        if us.Triggered:
-            for x in range(10):
-                us.trigger()
-                trigIR()
-                if us.Triggered:
-                    motorAll.forward(100)
-                    trigIR()
-            motorAll.reverse(70)
-            time.sleep(1)
-            motorAll.stop()
-        if x==17:
-            motorAll.forward(40)
-            trigIR()
-            time.sleep(1)
-            motorAll.stop()
-            x=0
-         
+        findOpponent()
 
 except KeyboardInterrupt:
+    motorAll.stop() 
     GPIO.cleanup()

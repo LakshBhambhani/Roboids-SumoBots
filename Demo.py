@@ -8,7 +8,7 @@ m2 = PiMotor.Motor("MOTOR2",1)
 m3 = PiMotor.Motor("MOTOR3",1)
 m4 = PiMotor.Motor("MOTOR4",1)
 
-us=Sensor("ULTRASONIC",30)
+us=Sensor("ULTRASONIC",60)
 ir1=Sensor("IR2",10)
 ir2=Sensor("IR1",10)
 
@@ -16,12 +16,11 @@ ir2=Sensor("IR1",10)
 motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
 
 x=0
-y=0
 
 def trigIR():
     ir1.trigger()
     ir2.trigger()
-    if ir1.Triggered:
+    if nir1.Triggered:
         motorAll.reverse(100)
         time.sleep(0.7)
         motorAll.stop()
@@ -41,10 +40,12 @@ try:
     print ("Going to the right...")
     m1.forward(100)
     m2.forward(0)
-    time.sleep(0.55)
+    time.sleep(0.4)
     motorAll.forward(70)
     time.sleep(0.7)
     motorAll.stop()
+    us.trigger()
+    trigIR()
     if us.Triggered:
             for x in range(10):
                 us.trigger()
@@ -89,7 +90,7 @@ try:
             time.sleep(0.2)
             trigIR()
             motorAll.stop()
-            #Sonic  Check
+            #Sonic Check
             x=x+1
             print(x)
             if x%3==0:
@@ -99,7 +100,6 @@ try:
                 trigIR()
                 motorAll.stop()
                 print("x is being 0d")
-                y=y+1
             trigIR()
         
 
