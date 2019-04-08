@@ -13,10 +13,12 @@ ir2=Sensor("IR1",10)
 
 #To drive all motors together
 motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
+leftMotors = PiMotor.LinkedMotors(m1, m2)
+rightMotors = PiMotors.LinkedMotors(m3, m4)
 
 try:
-    m1.forward(100)
-    m4.reverse(100)
+    leftMotors.forward(80)
+    rightMotors.reverse(80)
     time.sleep(5)
     motorAll.stop()
 

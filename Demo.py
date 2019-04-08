@@ -20,7 +20,7 @@ x=0
 def trigIR():
     ir1.trigger()
     ir2.trigger()
-    if nir1.Triggered:
+    if ir1.Triggered:
         motorAll.reverse(100)
         time.sleep(0.7)
         motorAll.stop()
@@ -30,6 +30,24 @@ def trigIR():
         time.sleep(0.7)
         motorAll.stop()
         print("Back Line Detected")
+
+def left():
+    print ("Going to the right...")
+    m1.reverse(100)
+    m2.reverse(60)
+    trigIR()
+    time.sleep(1.8)
+    motorAll.stop()
+    trigIR()
+
+def right():
+    print ("Going to the left...")
+    m1.reverse(70)
+    m2.reverse(100)
+    trigIR()
+    time.sleep(1.8)
+    motorAll.stop() 
+    trigIR()
 
 try:
     print ("Going to the left...")
