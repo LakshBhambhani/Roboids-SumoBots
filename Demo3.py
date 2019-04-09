@@ -13,17 +13,15 @@ al = PiMotor.Arrow(2)
 af = PiMotor.Arrow(3) 
 ar = PiMotor.Arrow(4)
 
-<<<<<<< HEAD
 us=Sensor("ULTRASONIC",120)
 irFront=Sensor("IR2",1)
 irBack=Sensor("IR1",1)
 irLeft=Sensor("IR3",1)
 irRight=Sensor("IR4",1)
-=======
+
 us=Sensor("ULTRASONIC",45)
 ir1=Sensor("IR2",10)
 ir2=Sensor("IR1",10)
->>>>>>> b835c9e03587d4fa03d03af397e373551eea3133
 
 #To drive all motors together
 motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
@@ -62,16 +60,13 @@ def trigIR():
         
 
 def findOpponent():
-<<<<<<< HEAD
     print("LA: Finding")
-=======
     print("Finding")
     trigIR()
     ar.on()
     al.on()
     ab.on()
     af.on()
->>>>>>> b835c9e03587d4fa03d03af397e373551eea3133
     loopright = True
     count = 1
     while True:
@@ -100,7 +95,6 @@ def findOpponent():
         time.sleep(0.001)
 
     if us.Triggered:
-<<<<<<< HEAD
         print("LA: Found opponent")
         while us.Triggered:
             us.trigger()
@@ -109,14 +103,12 @@ def findOpponent():
 			print("LA: Not moving forward")
         else:
             motorAll.forward(80)
-=======
             print("Found opponent")
             while us.Triggered:
                 us.trigger()
                 trigIR()
                 motorAll.forward(80)
                 trigIR()
->>>>>>> b835c9e03587d4fa03d03af397e373551eea3133
 
 try:
     al.on()
