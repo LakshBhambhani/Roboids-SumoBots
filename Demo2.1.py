@@ -15,6 +15,8 @@ ir2=Sensor("IR1",10)
 
 #To drive all motors together
 motorAll = PiMotor.LinkedMotors(m1,m2,m3,m4)
+leftMotors = PiMotor.LinkedMotors(m1,m2)
+rightMotors = PiMotor.LinkedMotors(m3,m4)
 
 x=0
 
@@ -22,18 +24,12 @@ def trigIR():
     ir1.trigger()
     ir2.trigger()
     if ir1.Triggered:
-        m1.reverse(75)
-        m2.reverse(100)
-        m3.reverse(100)
-        m4.reverse(75)
+        motorAll.reverse(100)
         time.sleep(0.7)
         motorAll.stop()
         print("Front Line Detected")
     if ir2.Triggered:
-        m1.forward(75)
-        m2.forward(100)
-        m3.forward(100)
-        m4.forward(75)
+        motorAll.reverse(100)
         time.sleep(0.7)
         motorAll.stop()
         print("Back Line Detected")
@@ -83,11 +79,9 @@ try:
     time.sleep(1.2)
     motorAll.stop()
     while True:
-        m1.forward(35)
-        m4.forward(35)
+        leftMotors.forward(80)
         trigIR()
-        m2.reverse(35)
-        m3.reverse(35)
+        rightMotors.reverse(80)
         trigIR()
         us.trigger()
         trigIR()
