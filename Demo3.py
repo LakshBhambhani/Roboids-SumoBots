@@ -7,6 +7,12 @@ m2 = PiMotor.Motor("MOTOR2",1)
 m3 = PiMotor.Motor("MOTOR3",1)
 m4 = PiMotor.Motor("MOTOR4",1)
 
+#Names for Individual Arrows
+ab = PiMotor.Arrow(1)
+al = PiMotor.Arrow(2)
+af = PiMotor.Arrow(3) 
+ar = PiMotor.Arrow(4)
+
 us=Sensor("ULTRASONIC",120)
 ir1=Sensor("IR2",10)
 ir2=Sensor("IR1",10)
@@ -66,6 +72,10 @@ def findOpponent():
                 motorAll.forward(80)
 
 try:
+    al.on()
+    ar.on()
+    ab.on()
+    af.on()
     print ("Going to the left...")
     m1.reverse(35)
     m2.reverse(35)
