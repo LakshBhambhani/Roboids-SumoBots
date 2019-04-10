@@ -63,10 +63,6 @@ def findOpponent():
     print("LA: Finding")
     print("Finding")
     trigIR()
-    ar.on()
-    al.on()
-    ab.on()
-    af.on()
     loopright = True
     count = 1
     while True:
@@ -77,9 +73,9 @@ def findOpponent():
             loopright = not loopright
             count = 0
         us.boundary = 120
-        motorAll.stop()
         us.trigger()
         time.sleep(0.001)
+        motorAll.stop()
         if us.Triggered:
             print("LA: Found")
             break
