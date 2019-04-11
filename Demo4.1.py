@@ -29,8 +29,6 @@ leftMotors = PiMotor.LinkedMotors(m3,m4)
 def trigIR():
     irFront.trigger()
     irBack.trigger()
-    irLeft.trigger()
-    irRight.trigger()
     if irFront.Triggered:
         motorAll.reverse(100)
         time.sleep(1.2)
@@ -44,11 +42,10 @@ def trigIR():
 
 def findOpponent():
     print("LA: Finding")
-    print("Finding")
     trigIR()
     motorSpeed = 40
     while True:
-	print("LA: ")
+	print("Last Read:")
 	print(us.lastRead)
         trigIR()
         us.boundary = 60
@@ -58,8 +55,7 @@ def findOpponent():
         if us.Triggered:
             print("LA: Found")
             trigIR()
-            break
-            
+            break 
         leftMotors.forward(70)
         rightMotors.reverse(70)
         trigIR()
@@ -68,16 +64,16 @@ def findOpponent():
     if us.Triggered:
         print("LA: Found opponent")
         count = 0
-	while us.Triggered and count < 2:
-	    print("LA: ")
-	    print(us.lastRead)
-	    print("Motorspeed: ")
-	    print(motorSpeed)
-	    us.trigger()
-	    trigIR()
-	    if irFront.Triggered:
-	    	count = count + 1
-            if us.lastRead <= 3 and not irFront.Triggered and not irBack.Triggered:
+        while us.Triggered and count < 2:
+	        print("Last Read:")
+	        print(us.lastRead)
+	        print("Motorspeed: ")
+	        print(motorSpeed)
+	        us.trigger()
+	        trigIR()
+	        if irFront.Triggered:
+	    	    count = count + 1
+            if us.lastRead <= 3 and not irFront.Triggered:
                 motorSpeed = 80
             else:
                 motorSpeed = 40
