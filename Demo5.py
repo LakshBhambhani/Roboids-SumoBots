@@ -50,36 +50,39 @@ def findOpponent():
 	print("Last Read:")
 	print(us.lastRead)
         trigIR()
-        us.boundary = 120
+        us.boundary = 60
         us.trigger()
         time.sleep(0.001)
         motorAll.stop()
-        if us.Triggered:
-            print("LA: Found")
-            trigIR()
-            break
         leftMotors.forward(70)
         rightMotors.reverse(70)
         trigIR()
         time.sleep(0.000001)
+        if us.Triggered:
+            print("LA: Found")
+            trigIR()
+            break
+       
 
     if us.Triggered:
         print("LA: Found opponent")
         count = 0
-	while us.Triggered and count < 2:
-	    print("LA: ")
-	    print(us.lastRead)
-	    print("Motorspeed: ")
-	    print(motorSpeed)
-	    us.trigger()
-	    trigIR()
-	    if irFront.Triggered:
-	    	count = count + 1
-            if us.lastRead <= 3 and not irFront.Triggered and not irBack.Triggered:
-                motorSpeed = 80
-            else:
-                motorSpeed = 40
-            motorAll.forward(motorSpeed)
+        while us.Triggered and count <= 2:
+	        print("LA: ")
+	        print("count:")
+	        print(count)
+                if irFront.Triggered:
+	    	    count = count + 1
+	        print(us.lastRead)
+	        print("Motorspeed: ")
+	        print(motorSpeed)
+	        us.trigger()
+	        trigIR()
+                if us.lastRead <= 3 and not irFront.Triggered and not irBack.Triggered:
+                    motorSpeed = 80
+                else:
+                    motorSpeed = 40
+                motorAll.forward(motorSpeed)
         
 
 try:
@@ -100,5 +103,6 @@ try:
 except KeyboardInterrupt:
     motorAll.stop() 
     GPIO.cleanup()
+
 
 
