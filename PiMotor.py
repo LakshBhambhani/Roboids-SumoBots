@@ -1,9 +1,3 @@
-#!/usr/bin/python
-
-# Library for PiMotor Shield V2
-# Developed by: SB Components
-# Project: RPi Motor Shield
-
 import RPi.GPIO as GPIO                        #Import GPIO library
 import time
 from time import sleep
@@ -56,7 +50,6 @@ class Motor:
         speed = Duty Cycle Percentage from 0 to 100.
         0 - stop and 100 - maximum speed
         '''    
-        print("Forward")
         if self.testMode:
             self.arrow.on()
         else:
@@ -71,7 +64,6 @@ class Motor:
         speed = Duty Cycle Percentage from 0 to 100.
         0 - stop and 100 - maximum speed
      '''
-        print("Reverse")
         if self.testMode:
             self.arrow.off()
         else:
@@ -82,7 +74,6 @@ class Motor:
     def stop(self):
         ''' Stops power to the motor,
      '''
-        print("Stop")
         self.arrow.off()
         self.PWM.ChangeDutyCycle(0)
         GPIO.output(self.pins['f'],GPIO.LOW)
@@ -210,7 +201,6 @@ class Stepper:
     def stop(self):
         ''' Stops power to the motor,
      '''
-        print("Stop Stepper Motor")
         GPIO.output(self.config['c1'],GPIO.LOW)
         GPIO.output(self.config['c2'],GPIO.LOW)
         GPIO.output(self.config['c3'],GPIO.LOW)
@@ -231,7 +221,6 @@ class Sensor:
     def iRCheck(self):
         input_state = GPIO.input(self.config["echo"])
         if input_state == True:
-            print("Sensor 2: Object Detected")
             self.Triggered = True
         else:
             self.Triggered = False
@@ -268,7 +257,6 @@ class Sensor:
         If the specified "boundary" has been breached the Sensor's Triggered attribute gets set to True.
     ''' 
         self.config["check"](self)
-        print("Trigger Called")
 
     def __init__(self, sensortype, boundary):
         self.config = self.sensorpins[sensortype]
