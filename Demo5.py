@@ -14,8 +14,8 @@ af = PiMotor.Arrow(3)
 ar = PiMotor.Arrow(4)
 
 us=Sensor("ULTRASONIC",120)
-irFront=Sensor("IR2",1)
-irBack=Sensor("IR1",1)
+irFront=Sensor("IR1",1)
+irBack=Sensor("IR2",1)
 irLeft=Sensor("IR3",1)
 irRight=Sensor("IR4",1)
 
@@ -103,6 +103,3 @@ try:
 except KeyboardInterrupt:
     motorAll.stop() 
     GPIO.cleanup()
-
-
-
